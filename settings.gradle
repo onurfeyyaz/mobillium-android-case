@@ -1,0 +1,2 @@
+rootProject.name = "Mobillium Hasta Randevu"
+include ':app'
