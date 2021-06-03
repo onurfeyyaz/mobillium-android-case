@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listelemeFragment">
+    <fragment
+        android:id="@+id/listelemeFragment"
+        android:name="com.feyyazonur.mobilliumhastarandevu.view.fragments.ListelemeFragment"
+        android:label="fragment_listeleme"
+        tools:layout="@layout/fragment_listeleme">
+        <action
+            android:id="@+id/action_listelemeFragment_to_detayFragment"
+            app:destination="@id/detayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detayFragment"
+        android:name="com.feyyazonur.mobilliumhastarandevu.view.fragments.DetayFragment"
+        android:label="fragment_detay"
+        tools:layout="@layout/fragment_detay">
+        <action
+            android:id="@+id/action_detayFragment_to_sonEkranFragment"
+            app:destination="@id/sonEkranFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/sonEkranFragment"
+        android:name="com.feyyazonur.mobilliumhastarandevu.view.fragments.SonEkranFragment"
+        android:label="fragment_son_ekran"
+        tools:layout="@layout/fragment_son_ekran" />
+</navigation>

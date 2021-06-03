@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:padding="25dp"
+    tools:context=".view.fragments.ListelemeFragment">
+
+    <EditText
+        android:id="@+id/search_clinic_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/custom_layout"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="16dp"
+        android:hint="@string/klinik_ara"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="16dp"
+        android:elevation="2dp"
+        android:textColor="@color/mid_gray_text_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/checkboxes_ly"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/checkboxes_ly"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_layout"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        app:layout_constraintBottom_toTopOf="@id/doctors_recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_clinic_edittext">
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:buttonTint="@color/gray_text_color"
+            android:text="@string/kadin"
+            android:textAlignment="textStart"
+            android:textColor="@color/gray_text_color"
+            android:textSize="12sp" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:buttonTint="@color/gray_text_color"
+            android:text="@string/erkek"
+            android:textAlignment="textStart"
+            android:textColor="@color/gray_text_color"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/doctors_recyclerview"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/checkboxes_ly"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
