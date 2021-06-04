@@ -1,8 +1,11 @@
 package com.feyyazonur.mobilliumhastarandevu.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-class Doctor(
+@Parcelize
+data class Doctor(
     @SerializedName("full_name")
     var fullName: String,
     @SerializedName("user_status")
@@ -11,4 +14,4 @@ class Doctor(
     var gender: String,
     @SerializedName("image")
     var image: Image
-)
+) : Parcelable

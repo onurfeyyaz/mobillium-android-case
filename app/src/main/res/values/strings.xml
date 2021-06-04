@@ -7,4 +7,9 @@
     <string name="kadin">Kadın</string>
     <string name="doktor_foto">Doktor Fotoğrafı</string>
     <string name="tikla">Tıkla</string>
+    <string name="premium">Premium</string>
+    <string name="randevu_al">Randevu Al</string>
+    <string name="premium_paket_al">Premium Paket Al</string>
+    <string name="randevu_ekrani">Randevu Ekranı</string>
+    <string name="odeme_ekrani">Ödeme Ekranı</string>
 </resources>

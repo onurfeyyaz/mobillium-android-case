@@ -21,11 +21,18 @@
         <action
             android:id="@+id/action_detayFragment_to_sonEkranFragment"
             app:destination="@id/sonEkranFragment" />
+        <argument
+            android:name="doctorArg"
+            app:argType="com.feyyazonur.mobilliumhastarandevu.model.Doctor" />
     </fragment>
 
     <fragment
         android:id="@+id/sonEkranFragment"
         android:name="com.feyyazonur.mobilliumhastarandevu.view.fragments.SonEkranFragment"
         android:label="fragment_son_ekran"
-        tools:layout="@layout/fragment_son_ekran" />
+        tools:layout="@layout/fragment_son_ekran" >
+        <argument
+            android:name="isPremium"
+            app:argType="string" />
+    </fragment>
 </navigation>

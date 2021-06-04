@@ -1,14 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<!-- FONT DEĞİŞTİR-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.SonEkranFragment">
+    tools:context=".view.fragments.DetayFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_last_screen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/green_tab_color"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/last_screen_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/mid_gray_text_color"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_last_screen" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
