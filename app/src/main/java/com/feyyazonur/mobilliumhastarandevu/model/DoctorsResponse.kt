@@ -2,7 +2,7 @@ package com.feyyazonur.mobilliumhastarandevu.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Doctors(
+class DoctorsResponse(
     @SerializedName("doctors")
-    var doctors: List<Doctor>
+    var doctors: ArrayList<Doctor>
 )

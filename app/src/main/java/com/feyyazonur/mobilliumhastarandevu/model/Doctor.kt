@@ -2,7 +2,7 @@ package com.feyyazonur.mobilliumhastarandevu.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Doctor(
+class Doctor(
     @SerializedName("full_name")
     var fullName: String,
     @SerializedName("user_status")

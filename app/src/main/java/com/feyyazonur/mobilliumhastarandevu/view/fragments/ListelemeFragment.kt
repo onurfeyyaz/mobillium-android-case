@@ -28,11 +28,13 @@ class ListelemeFragment : Fragment() {
     ): View? {
         _binding = FragmentListelemeBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this, MainViewModelFactory(Repository(retrofitService))).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, MainViewModelFactory(Repository(retrofitService))).get(
+            MainViewModel::class.java
+        )
 
         binding.doctorsRecyclerview.adapter = adapter
 
-        viewModel.doctorsList.observe(viewLifecycleOwner, Observer { doctor ->
+        viewModel.doctorsListLiveData.observe(viewLifecycleOwner, Observer { doctor ->
             Log.d("Listele Fragment", "onCreateView: $doctor")
             adapter.setDoctorList(doctor)
         })
