@@ -13,6 +13,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val doctorsList = ArrayList<Doctor>()
     val doctorsListLiveData = MutableLiveData<MutableList<Doctor>>()
 
+
     fun getAllDoctors() {
         val response = repository.getAllDoctors()
         response.enqueue(object : Callback<DoctorsResponse> {
@@ -25,16 +26,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                     for (doc in doctorResponse.doctors) {
                         doctorsList.add(doc)
                         doctorsListLiveData.value = doctorsList
-                        Log.v("----- OLd", doc.fullName)
+                        Log.d("----- OLd", doc.fullName)
                     }
                 }
-
-                //doctorsList.postValue(response.body()?.doctors)
-                //Log.d("--- Doctor List ---", response.body().toString())
             }
 
             override fun onFailure(call: Call<DoctorsResponse>, t: Throwable) {
-                Log.d("--- Failure ---", t.message ?: "HOHOHO")
+                Log.d("--- Failure ---", t.message ?: "başaramadık abi")
             }
 
         })

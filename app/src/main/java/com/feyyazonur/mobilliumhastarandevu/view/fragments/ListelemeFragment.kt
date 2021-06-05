@@ -1,6 +1,8 @@
 package com.feyyazonur.mobilliumhastarandevu.view.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.feyyazonur.mobilliumhastarandevu.*
 import com.feyyazonur.mobilliumhastarandevu.databinding.FragmentListelemeBinding
+import com.feyyazonur.mobilliumhastarandevu.model.Doctor
 
 class ListelemeFragment : Fragment() {
 
@@ -18,9 +21,19 @@ class ListelemeFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
+    var filteredNameList = mutableListOf<Doctor>()
+
     private val retrofitService = RetrofitService.getInstance()
 
     val adapter = DoctorAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, MainViewModelFactory(Repository(retrofitService))).get(
+            MainViewModel::class.java
+        )
+        viewModel.getAllDoctors()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,15 +44,52 @@ class ListelemeFragment : Fragment() {
         viewModel = ViewModelProvider(this, MainViewModelFactory(Repository(retrofitService))).get(
             MainViewModel::class.java
         )
-
         binding.doctorsRecyclerview.adapter = adapter
 
-        viewModel.doctorsListLiveData.observe(viewLifecycleOwner, Observer { doctor ->
-            Log.d("Listele Fragment", "onCreateView: $doctor")
-            adapter.setDoctorList(doctor)
+
+        binding.searchClinicEdittext.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                val filteredName =
+                    binding.searchClinicEdittext.text.toString().lowercase().replace(" ", "")
+                Log.d("--- RecyclerView Name ", filteredName)
+
+                viewModel.doctorsListLiveData.observe(viewLifecycleOwner, Observer { doctor ->
+                    filteredNameList.clear()
+                    for (i in doctor) {
+                        if (i.fullName.lowercase().replace(" ", "") == filteredName
+                                //.contains(filteredName)
+                        ) {
+                            Log.d("--- RecyclerView 123", i.fullName.lowercase().replace(" ", ""))
+
+                            filteredNameList.add(i)
+                            Log.d("--- DOCTOR LIST", filteredNameList.toString())
+
+                            adapter.setDoctorList(filteredNameList)
+                            binding.doctorsRecyclerview.visibility = View.VISIBLE
+
+                        } else {
+                            /*adapter.setDoctorList(doctor)
+                            Log.d("--- RecyclerView ", " GONEE")
+                            binding.doctorsRecyclerview.visibility = View.INVISIBLE*/
+                        }
+                    }
+                    //adapter.setDoctorList(doctor)
+                })
+                //adapter.filterName(binding.searchClinicEdittext.text.toString())
+            }
         })
 
-        viewModel.getAllDoctors()
 
         return binding.root
     }

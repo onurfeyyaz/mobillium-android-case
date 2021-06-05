@@ -1,7 +1,6 @@
 package com.feyyazonur.mobilliumhastarandevu.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,9 +28,6 @@ class DetayFragment : Fragment() {
         binding.doctorNameDetail.text = args.doctorArg.fullName
 
         val imageURL = args.doctorArg.image.toString()
-
-        Log.d("--- IMAJJ 1---", imageURL)
-        Log.d("--- IMAJJ 2---", extractUrl(imageURL))
 
         Glide.with(requireActivity()).load(extractUrl(imageURL)).circleCrop()
             .into(binding.imageViewDetail)

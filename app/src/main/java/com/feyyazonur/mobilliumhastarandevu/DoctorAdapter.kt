@@ -1,5 +1,6 @@
 package com.feyyazonur.mobilliumhastarandevu
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -13,6 +14,7 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapterViewHolder>() {
 
     var doctors = mutableListOf<Doctor>()
 
+    var filteredName: String = ""
     var fullNameOfDoctor: String = ""
     var userStatus: String = ""
     var gender: String = ""
@@ -20,6 +22,11 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapterViewHolder>() {
 
     fun setDoctorList(doctors: MutableList<Doctor>) {
         this.doctors = doctors.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun filterName(filteredName: String) {
+        this.filteredName = filteredName
         notifyDataSetChanged()
     }
 
@@ -36,12 +43,22 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapterViewHolder>() {
         userStatus = doctor.userStatus
         gender = doctor.gender
         imageUrl = doctor.image.url
+        val filteredNameToLower: String = filteredName.lowercase().replace(" ", "")
 
+        //Log.d("--- DoctorAdapter Fullt", fullNameOfDoctor.lowercase().replace(" ", ""))
+
+        /*if (fullNameOfDoctor.lowercase().replace(" ", "").contains(filteredNameToLower)) {
+            holder.binding.doctorNameTextview.text = fullNameOfDoctor
+
+            Glide.with(holder.itemView.context).load(imageUrl).circleCrop()
+                .into(holder.binding.doctorImageview)
+        }else {
+            Log.d("--- DoctorAdapter ELSE", "olmadı beee")
+        }*/
         holder.binding.doctorNameTextview.text = fullNameOfDoctor
 
         Glide.with(holder.itemView.context).load(imageUrl).circleCrop()
             .into(holder.binding.doctorImageview)
-
         holder.binding.cardView.setOnClickListener {
             val action = ListelemeFragmentDirections.actionListelemeFragmentToDetayFragment(doctor)
             holder.itemView.findNavController().navigate(action)
