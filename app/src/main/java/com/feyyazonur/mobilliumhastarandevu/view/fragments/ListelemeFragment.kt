@@ -22,6 +22,9 @@ class ListelemeFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     var filteredNameList = mutableListOf<Doctor>()
+    var filteredGenderList = mutableListOf<Doctor>()
+
+    private var selectedGender: String = ""
 
     private val retrofitService = RetrofitService.getInstance()
 
@@ -44,17 +47,27 @@ class ListelemeFragment : Fragment() {
         viewModel = ViewModelProvider(this, MainViewModelFactory(Repository(retrofitService))).get(
             MainViewModel::class.java
         )
+
         binding.doctorsRecyclerview.adapter = adapter
+
+
+        binding.kadinCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            selectedGender = "female"
+            Log.d("--- GENDER Selected in", selectedGender)
+            binding.erkekCheckbox.isClickable = !isChecked
+        }
+        binding.erkekCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            selectedGender = "male"
+            Log.d("--- GENDER Selected in", selectedGender)
+
+            binding.kadinCheckbox.isClickable = !isChecked
+        }
 
 
         binding.searchClinicEdittext.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
 
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
-            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(
                 s: CharSequence, start: Int,
@@ -62,26 +75,27 @@ class ListelemeFragment : Fragment() {
             ) {
                 val filteredName =
                     binding.searchClinicEdittext.text.toString().lowercase().replace(" ", "")
-                Log.d("--- RecyclerView Name ", filteredName)
 
                 viewModel.doctorsListLiveData.observe(viewLifecycleOwner, Observer { doctor ->
                     filteredNameList.clear()
                     for (i in doctor) {
-                        if (i.fullName.lowercase().replace(" ", "") == filteredName
-                                //.contains(filteredName)
-                        ) {
+                        val iFilteredName = i.fullName.lowercase().replace(" ", "")
+                        val iFilteredGender = i.gender // male or female
+
+                        if (iFilteredName.contains(filteredName) && iFilteredGender == selectedGender) { //== filteredName
                             Log.d("--- RecyclerView 123", i.fullName.lowercase().replace(" ", ""))
+                            Log.d("--- GENDER İ", iFilteredGender)
+                            Log.d("--- GENDER Selected", selectedGender)
 
                             filteredNameList.add(i)
-                            Log.d("--- DOCTOR LIST", filteredNameList.toString())
 
                             adapter.setDoctorList(filteredNameList)
                             binding.doctorsRecyclerview.visibility = View.VISIBLE
 
                         } else {
                             /*adapter.setDoctorList(doctor)
-                            Log.d("--- RecyclerView ", " GONEE")
-                            binding.doctorsRecyclerview.visibility = View.INVISIBLE*/
+                            Log.d("--- RecyclerView ", " GONEE")*/
+                            //binding.doctorsRecyclerview.visibility = View.INVISIBLE
                         }
                     }
                     //adapter.setDoctorList(doctor)
