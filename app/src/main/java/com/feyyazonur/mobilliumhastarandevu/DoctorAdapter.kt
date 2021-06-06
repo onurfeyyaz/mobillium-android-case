@@ -1,7 +1,7 @@
 package com.feyyazonur.mobilliumhastarandevu
 
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +37,13 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapterViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: DoctorAdapterViewHolder, position: Int) {
+        when (position) {
+            0 -> holder.binding.cardView.setBackgroundResource(R.drawable.recyclerview_bg_top)
+            (doctors.size - 1) -> {
+                holder.binding.cardView.setBackgroundResource(R.drawable.recyclerview_bg_bottom)
+                holder.binding.viewDivider.visibility = View.GONE
+            }
+        }
         val doctor = doctors[position]
 
         fullNameOfDoctor = doctor.fullName

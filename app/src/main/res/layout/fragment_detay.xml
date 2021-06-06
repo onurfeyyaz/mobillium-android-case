@@ -1,14 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
-<!-- FONT DEĞİŞTİR-->
+<?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -58,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
+                android:fontFamily="@font/quicksand_medium"
                 android:text="@string/premium"
                 android:textColor="@color/mid_gray_text_color"
                 android:textSize="14sp"
@@ -69,6 +61,7 @@
                 android:id="@+id/premium_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
                 android:text="@string/premium"
                 android:textColor="@color/orange_text_color"
                 android:textSize="12sp"
@@ -99,6 +92,7 @@
                 android:id="@+id/randevu_textview_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/quicksand_medium"
                 android:text="Randevu Al"
                 android:textColor="@color/green_tab_color"
                 android:textSize="12sp"

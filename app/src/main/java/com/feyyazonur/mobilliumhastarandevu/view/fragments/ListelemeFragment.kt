@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.feyyazonur.mobilliumhastarandevu.*
 import com.feyyazonur.mobilliumhastarandevu.databinding.FragmentListelemeBinding
 import com.feyyazonur.mobilliumhastarandevu.model.Doctor
