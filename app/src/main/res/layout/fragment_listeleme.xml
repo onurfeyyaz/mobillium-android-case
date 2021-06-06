@@ -90,4 +90,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkboxes_ly" />
 
+    <ImageView
+        android:id="@+id/not_found_image"
+        android:layout_width="136dp"
+        android:layout_height="136dp"
+        android:contentDescription="@string/notfoundimage"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/ic_account_circle"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkboxes_ly" />
+
+    <TextView
+        android:id="@+id/not_found_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/kullanic_bulunamadi"
+        android:textColor="@color/gray_text_color"
+        android:layout_marginTop="17dp"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/not_found_image" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

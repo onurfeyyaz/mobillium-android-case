@@ -50,18 +50,7 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorAdapterViewHolder>() {
         userStatus = doctor.userStatus
         gender = doctor.gender
         imageUrl = doctor.image.url
-        val filteredNameToLower: String = filteredName.lowercase().replace(" ", "")
 
-        //Log.d("--- DoctorAdapter Fullt", fullNameOfDoctor.lowercase().replace(" ", ""))
-
-        /*if (fullNameOfDoctor.lowercase().replace(" ", "").contains(filteredNameToLower)) {
-            holder.binding.doctorNameTextview.text = fullNameOfDoctor
-
-            Glide.with(holder.itemView.context).load(imageUrl).circleCrop()
-                .into(holder.binding.doctorImageview)
-        }else {
-            Log.d("--- DoctorAdapter ELSE", "olmadı beee")
-        }*/
         holder.binding.doctorNameTextview.text = fullNameOfDoctor
 
         Glide.with(holder.itemView.context).load(imageUrl).circleCrop()

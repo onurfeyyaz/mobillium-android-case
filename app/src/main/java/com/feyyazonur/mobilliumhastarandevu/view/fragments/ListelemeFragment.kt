@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.feyyazonur.mobilliumhastarandevu.*
 import com.feyyazonur.mobilliumhastarandevu.databinding.FragmentListelemeBinding
 import com.feyyazonur.mobilliumhastarandevu.model.Doctor
@@ -24,7 +22,6 @@ class ListelemeFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     var filteredNameList = mutableListOf<Doctor>()
-    var filteredGenderList = mutableListOf<Doctor>()
 
     private var selectedGender: String = ""
 
@@ -54,15 +51,24 @@ class ListelemeFragment : Fragment() {
 
 
         binding.kadinCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            selectedGender = "female"
-            Log.d("--- GENDER Selected in", selectedGender)
+            if (isChecked) {
+                selectedGender = "female"
+                Log.d("--- GENDER Selected in", selectedGender)
+            } else {
+                selectedGender = ""
+            }
             binding.erkekCheckbox.isClickable = !isChecked
+
         }
         binding.erkekCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            selectedGender = "male"
-            Log.d("--- GENDER Selected in", selectedGender)
-
+            if (isChecked) {
+                selectedGender = "male"
+                Log.d("--- GENDER Selected in", selectedGender)
+            } else {
+                selectedGender = ""
+            }
             binding.kadinCheckbox.isClickable = !isChecked
+
         }
 
 
@@ -75,39 +81,66 @@ class ListelemeFragment : Fragment() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
+
                 val filteredName =
                     binding.searchClinicEdittext.text.toString().lowercase().replace(" ", "")
 
                 viewModel.doctorsListLiveData.observe(viewLifecycleOwner, Observer { doctor ->
-                    filteredNameList.clear()
-                    for (i in doctor) {
-                        val iFilteredName = i.fullName.lowercase().replace(" ", "")
-                        val iFilteredGender = i.gender // male or female
 
-                        if (iFilteredName.contains(filteredName) && iFilteredGender == selectedGender) { //== filteredName
-                            Log.d("--- RecyclerView 123", i.fullName.lowercase().replace(" ", ""))
-                            Log.d("--- GENDER İ", iFilteredGender)
-                            Log.d("--- GENDER Selected", selectedGender)
+                    if ((binding.searchClinicEdittext.text.isEmpty() || binding.searchClinicEdittext.text.isNullOrBlank()) && selectedGender == "") {
+                        adapter.setDoctorList(doctor)
+                        setVisibility(true)
+                        /*binding.doctorsRecyclerview.visibility = View.VISIBLE
+                        binding.notFoundTextview.visibility = View.GONE
+                        binding.notFoundImage.visibility = View.GONE*/
+                    } else {
+                        filteredNameList.clear()
+                        for (i in doctor) {
+                            val iFilteredName = i.fullName.lowercase().replace(" ", "")
+                            val iFilteredGender = i.gender // male or female
 
-                            filteredNameList.add(i)
+                            if (iFilteredName.contains(filteredName) && iFilteredGender == selectedGender) { //== filteredName
+                                filteredNameList.add(i)
 
-                            adapter.setDoctorList(filteredNameList)
-                            binding.doctorsRecyclerview.visibility = View.VISIBLE
+                            }
+                        }
 
-                        } else {
+                        if (filteredNameList.isEmpty()) {
+                            setVisibility(false)
                             /*adapter.setDoctorList(doctor)
-                            Log.d("--- RecyclerView ", " GONEE")*/
-                            //binding.doctorsRecyclerview.visibility = View.INVISIBLE
+                            binding.doctorsRecyclerview.visibility = View.GONE
+                            binding.notFoundTextview.visibility = View.VISIBLE
+                            binding.notFoundImage.visibility = View.VISIBLE*/
+                        } else {
+                            adapter.setDoctorList(filteredNameList)
+                            setVisibility(true)
+                            /*binding.doctorsRecyclerview.visibility = View.VISIBLE
+                            binding.notFoundTextview.visibility = View.GONE
+                            binding.notFoundImage.visibility = View.GONE*/
                         }
                     }
-                    //adapter.setDoctorList(doctor)
                 })
-                //adapter.filterName(binding.searchClinicEdittext.text.toString())
             }
         })
 
 
         return binding.root
+    }
+
+    //gone/invisible -> 0 (false), visible -> 1 (true)
+    fun setVisibility(recyclerViewVisibility: Boolean) {
+        when (recyclerViewVisibility) {
+            true -> {
+                binding.doctorsRecyclerview.visibility = View.VISIBLE
+                binding.notFoundTextview.visibility = View.GONE
+                binding.notFoundImage.visibility = View.GONE
+            }
+            false -> {
+                binding.doctorsRecyclerview.visibility = View.GONE
+                binding.notFoundTextview.visibility = View.VISIBLE
+                binding.notFoundImage.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onDestroyView() {

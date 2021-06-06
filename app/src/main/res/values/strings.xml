@@ -12,4 +12,6 @@
     <string name="premium_paket_al">Premium Paket Al</string>
     <string name="randevu_ekrani">Randevu Ekranı</string>
     <string name="odeme_ekrani">Ödeme Ekranı</string>
+    <string name="notfoundimage">notfoundimage</string>
+    <string name="kullanic_bulunamadi">Kullanıcı Bulunamadı</string>
 </resources>
