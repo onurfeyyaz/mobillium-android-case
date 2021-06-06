@@ -1,6 +1,6 @@
 # Mobillium Android Case - Feyyaz ONUR - 07.06.2021
 
-Online Hastane Randevu Uygulaması
+Online Hasta Randevu Sistemi Uygulaması
 ---
 Kotlin ile geliştirilen bu projede:
 - MVVM
