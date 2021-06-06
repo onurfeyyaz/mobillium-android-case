@@ -3,16 +3,19 @@ package com.feyyazonur.mobilliumhastarandevu.view.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.feyyazonur.mobilliumhastarandevu.*
+import com.feyyazonur.mobilliumhastarandevu.adapter.DoctorAdapter
 import com.feyyazonur.mobilliumhastarandevu.databinding.FragmentListelemeBinding
 import com.feyyazonur.mobilliumhastarandevu.model.Doctor
+import com.feyyazonur.mobilliumhastarandevu.network.RetrofitService
+import com.feyyazonur.mobilliumhastarandevu.repository.Repository
+import com.feyyazonur.mobilliumhastarandevu.viewmodel.MainViewModel
+import com.feyyazonur.mobilliumhastarandevu.viewmodel.MainViewModelFactory
 
 class ListelemeFragment : Fragment() {
 
@@ -48,12 +51,13 @@ class ListelemeFragment : Fragment() {
         )
 
         binding.doctorsRecyclerview.adapter = adapter
-
+        viewModel.doctorsListLiveData.observe(viewLifecycleOwner, Observer { doctor ->
+            adapter.setDoctorList(doctor)
+        })
 
         binding.kadinCheckbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 selectedGender = "female"
-                Log.d("--- GENDER Selected in", selectedGender)
             } else {
                 selectedGender = ""
             }
@@ -63,14 +67,11 @@ class ListelemeFragment : Fragment() {
         binding.erkekCheckbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 selectedGender = "male"
-                Log.d("--- GENDER Selected in", selectedGender)
             } else {
                 selectedGender = ""
             }
             binding.kadinCheckbox.isClickable = !isChecked
-
         }
-
 
         binding.searchClinicEdittext.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -90,9 +91,6 @@ class ListelemeFragment : Fragment() {
                     if ((binding.searchClinicEdittext.text.isEmpty() || binding.searchClinicEdittext.text.isNullOrBlank()) && selectedGender == "") {
                         adapter.setDoctorList(doctor)
                         setVisibility(true)
-                        /*binding.doctorsRecyclerview.visibility = View.VISIBLE
-                        binding.notFoundTextview.visibility = View.GONE
-                        binding.notFoundImage.visibility = View.GONE*/
                     } else {
                         filteredNameList.clear()
                         for (i in doctor) {
@@ -107,22 +105,14 @@ class ListelemeFragment : Fragment() {
 
                         if (filteredNameList.isEmpty()) {
                             setVisibility(false)
-                            /*adapter.setDoctorList(doctor)
-                            binding.doctorsRecyclerview.visibility = View.GONE
-                            binding.notFoundTextview.visibility = View.VISIBLE
-                            binding.notFoundImage.visibility = View.VISIBLE*/
                         } else {
                             adapter.setDoctorList(filteredNameList)
                             setVisibility(true)
-                            /*binding.doctorsRecyclerview.visibility = View.VISIBLE
-                            binding.notFoundTextview.visibility = View.GONE
-                            binding.notFoundImage.visibility = View.GONE*/
                         }
                     }
                 })
             }
         })
-
 
         return binding.root
     }
